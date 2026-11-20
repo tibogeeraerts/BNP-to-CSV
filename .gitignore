@@ -1,0 +1,11 @@
+# Bank statements and generated CSVs contain personal data - never commit them
+input/
+output/
+*.pdf
+*.csv
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
