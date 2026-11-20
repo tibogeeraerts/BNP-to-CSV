@@ -33,7 +33,8 @@ Everything else on the statement (account holder, customer number, IBANs,
 BICs, addresses, card numbers, bank references, mandate numbers) is never
 written to the output. Before writing a file, the script also checks every
 row for anything that looks like an IBAN or card number and refuses to write
-that year if it finds one.
+that year if it finds one. A `name` or `notes` value that starts with `=`, `+`,
+`-` or `@` gets a leading `'`, so a spreadsheet never runs it as a formula.
 
 ## Requirements
 

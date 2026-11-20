@@ -18,7 +18,7 @@ from bnp.models import RawTransaction, Row
 # Masked or full card number: "1111 22XX XXXX 3333" (also without spaces).
 CARD_RE = re.compile(r"\b\d{4} ?[\dX]{2}[\dX]{2} ?[\dX]{4} ?\d{4}\b")
 
-# IBAN anywhere in a string: "BE12 3456 7890 1234", "DE82 1013 0800 1058 6089 03".
+# IBAN anywhere in a string: "BE12 3456 7890 1234", "DE89 3704 0044 0532 0130 00".
 IBAN_RE = re.compile(r"\b[A-Z]{2}\d{2}(?: ?[A-Z0-9]{4}){2,7}(?: ?[A-Z0-9]{1,3})?\b")
 
 # A counterparty line that is just an IBAN, optionally followed by a currency.

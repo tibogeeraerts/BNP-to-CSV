@@ -102,7 +102,7 @@ CASES = {
                 "Mededeling : Spaarpot",
                 "Bankreferentie : 2610011111111111",
             ],
-            ["DE82 1013 0800 1058 6089 03", "COBADEFFXXX", "Some Savings GmbH", "Musterweg 5", "10115 BERLIN"],
+            ["DE89 3704 0044 0532 0130 00", "COBADEFFXXX", "Some Savings GmbH", "Musterweg 5", "10115 BERLIN"],
             amount="-100.00",
         ),
         "Some Savings GmbH",

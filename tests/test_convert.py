@@ -359,3 +359,14 @@ def test_end_to_end_real_statement(tmp_path):
         assert convert.leak_reason(r[2]) is None and convert.leak_reason(r[3]) is None
     for word in ("Bankreferentie", "Klantnr", "Uittreksel"):
         assert word.lower() not in text.lower()
+
+
+@pytest.mark.parametrize("value", ['=HYPERLINK("http://x")', "+1+1", "-2+3", "@SUM(A1)", "\tTab", "\rCR"])
+def test_csv_neutralises_formulas(tmp_path, value):
+    make_pdf(tmp_path / "input", "2024", "ACC-EX-2024-03.pdf")
+    s = stmt("100.00", [tx("0001", date(2024, 3, 5), "-12.50", value, value)])
+    code, _ = run(tmp_path, {"ACC-EX-2024-03.pdf": s})
+    assert code == 0
+    row = read_csv(tmp_path / "output" / "2024.csv")[1]
+    assert row[1] == "-12.50"  # amount stays numeric
+    assert row[2] == row[3] == "'" + value

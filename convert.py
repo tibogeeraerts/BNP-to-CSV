@@ -156,6 +156,11 @@ def format_amount(amount: Decimal) -> str:
     return f"{q:.2f}"
 
 
+def csv_safe(text: str) -> str:
+    """Prefix ' to text a spreadsheet would run as a formula (CSV injection)."""
+    return "'" + text if text[:1] in ("=", "+", "-", "@", "\t", "\r") else text
+
+
 def write_csv_atomic(path: Path, rows: Iterable[Row]) -> None:
     """Write rows to path via a temp file in the same directory + os.replace."""
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -165,7 +170,7 @@ def write_csv_atomic(path: Path, rows: Iterable[Row]) -> None:
             writer = csv.writer(f, lineterminator="\n")
             writer.writerow(CSV_HEADER)
             for r in rows:
-                writer.writerow([r.date.isoformat(), format_amount(r.amount), r.seller, r.description])
+                writer.writerow([r.date.isoformat(), format_amount(r.amount), csv_safe(r.seller), csv_safe(r.description)])
         os.replace(tmp_name, path)
     except BaseException:
         try:
